@@ -38,71 +38,77 @@
                         type: 'binary'
                     });
                     workbook.SheetNames.forEach(function(sheetName) {
-                        let sheet = {};
-                        var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-                        for(let i=2;i < XL_row_object.length+2;i++){
-                            sheet = workbook.Sheets[sheetName];
-                            grade = sheet[B_grade+i] ? sheet[B_grade+i].v :"";
-                            subject = sheet[C_subject+i] ? sheet[C_subject+i].v :"";
-                            title = sheet[D_title+i] ? sheet[D_title+i].v :"";
-                            tille_img = sheet[E_tille_img+i] ? sheet[E_tille_img+i].v :"";
-                            a = sheet[F_a+i] ? sheet[F_a+i].v :"";
-                            a_img = sheet[G_a_img+i] ? sheet[G_a_img+i].v :"";
-                            b = sheet[H_b+i] ? sheet[H_b+i].v :"";
-                            b_img = sheet[I_b_img+i] ? sheet[I_b_img+i].v :"";
-                            c = sheet[J_c+i] ? sheet[J_c+i].v :"";
-                            c_img = sheet[J_c_img+i] ? sheet[J_c_img+i].v :"";
-                            d = sheet[L_d+i] ? sheet[L_d+i].v :"";
-                            d_img = sheet[M_d_img+i] ? sheet[M_d_img+i].v :"";
-                            answer = sheet[N_answer+i] ? sheet[N_answer+i].v :"";
-                            type = sheet[O_type+i] ? sheet[O_type+i].v :"";
-                            value = sheet[P_value+i] ? sheet[P_value+i].v :"";
-                            let options = [];
-                            if(!!a || !!a_img){
-                                options.push(`{"word":"${a}","img":"${a_img}"}`.replace("'","\\'"))
-                            }
-                            if(!!b || !!b_img){
-                                options.push(`{"word":"${b}","img":"${b_img}"}`.replace("'","\\'"))
-                            }
-                            if(!!c || !!c_img){
-                                options.push(`{"word":"${c}","img":"${c_img}"}`.replace("'","\\'"))
-                            }
-                            if(!!d || !!d_img){
-                                options.push(`{"word":"${d}","img":"${d_img}"}`.replace("'","\\'"))
-                            }
-                            debugger
-                            if(subject == "数学"){
-                                subject = 'math';
-                            }
-                            if(subject == "语文"){
-                                subject = 'chinese';
-                            }
-                            if(subject == "英语"){
-                                subject = 'english';
-                            }
-                            if(grade == "一年级"){
-                                grade = 1;
-                            }
-                            if(grade == "二年级"){
-                                grade = 2;
-                            }
-                            if(grade == "三年级"){
-                                grade = 3;
-                            }
-                            if(grade == "四年级"){
-                                grade = 4;
-                            }
-                            if(grade == "五年级"){
-                                grade = 5;
-                            }
-                            if(grade == "六年级"){
-                                grade = 6;
-                            }
-                            title = title.replace("'","\\'")
-                            content += `INSERT INTO \`bot_engine\`.\`edu_question_info\`
+                        if(sheetName == '题库说明'){
+
+                        }else{
+                            let sheet = {};
+                            var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+                            for(let i=2;i < XL_row_object.length+2;i++){
+                                sheet = workbook.Sheets[sheetName];
+                                grade = sheet[B_grade+i] ? sheet[B_grade+i].v :"";
+                                subject = sheet[C_subject+i] ? sheet[C_subject+i].v :"";
+                                title = sheet[D_title+i] ? sheet[D_title+i].v :"";
+                                tille_img = sheet[E_tille_img+i] ? sheet[E_tille_img+i].v :"";
+                                a = sheet[F_a+i] ? sheet[F_a+i].v :"";
+                                a_img = sheet[G_a_img+i] ? sheet[G_a_img+i].v :"";
+                                b = sheet[H_b+i] ? sheet[H_b+i].v :"";
+                                b_img = sheet[I_b_img+i] ? sheet[I_b_img+i].v :"";
+                                c = sheet[J_c+i] ? sheet[J_c+i].v :"";
+                                c_img = sheet[J_c_img+i] ? sheet[J_c_img+i].v :"";
+                                d = sheet[L_d+i] ? sheet[L_d+i].v :"";
+                                d_img = sheet[M_d_img+i] ? sheet[M_d_img+i].v :"";
+                                answer = sheet[N_answer+i] ? sheet[N_answer+i].v :"";
+                                type = sheet[O_type+i] ? sheet[O_type+i].v :"";
+                                value = sheet[P_value+i] ? sheet[P_value+i].v :"";
+                                let options = [];
+                                if(!!a || !!a_img){
+                                    options.push(`{"word":"${a}","img":"${a_img}"}`.replace("'","\\'").replace('\n','').replace('\n',''))
+                                }
+                                if(!!b || !!b_img){
+                                    options.push(`{"word":"${b}","img":"${b_img}"}`.replace("'","\\'").replace('\n','').replace('\n',''))
+                                }
+                                if(!!c || !!c_img){
+                                    options.push(`{"word":"${c}","img":"${c_img}"}`.replace("'","\\'").replace('\n','').replace('\n',''))
+                                }
+                                if(!!d || !!d_img){
+                                    options.push(`{"word":"${d}","img":"${d_img}"}`.replace("'","\\'").replace('\n','').replace('\n',''))
+                                }
+                                debugger
+                                if(subject == "数学"){
+                                    subject = 'math';
+                                }
+                                if(subject == "语文"){
+                                    subject = 'chinese';
+                                }
+                                if(subject == "英语"){
+                                    subject = 'english';
+                                }
+                                if(grade == "一年级"){
+                                    grade = 1;
+                                }
+                                if(grade == "二年级"){
+                                    grade = 2;
+                                }
+                                if(grade == "三年级"){
+                                    grade = 3;
+                                }
+                                if(grade == "四年级"){
+                                    grade = 4;
+                                }
+                                if(grade == "五年级"){
+                                    grade = 5;
+                                }
+                                if(grade == "六年级"){
+                                    grade = 6;
+                                }
+                                title = title.replace("'","\\'")
+                                title = title.replace('\n','')
+                                title = title.replace('\n','')
+                                content += `INSERT INTO \`bot_engine\`.\`edu_question_info\`
                             (\`content\`, \`type\`, \`weight\`, \`grade\`, \`course\`, \`answer\`, \`gmt_create\`, \`gmt_modified\`) VALUES
                             ('{"title":{"word":"${title}","img":"${tille_img}"},"options":[${options}]}','${type}','${value}','${grade}','${subject}','${answer}','2020-11-09 14:47:54','2020-11-09 14:47:54');`;
-                            content += '\n'
+                                content += '\n'
+                            }
                         }
                         content += '\n\n'
                     })
