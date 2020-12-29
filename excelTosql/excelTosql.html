@@ -103,6 +103,9 @@
                                 title = title.replace("'","\\'")
                                 title = title.replace('\n','')
                                 title = title.replace('\n','')
+                                tille_img = tille_img.replace("'","\\'")
+                                tille_img = tille_img.replace('\n','')
+                                tille_img = tille_img.replace('\n','')
                                 content += `INSERT INTO \`bot_engine\`.\`edu_question_info\`
                             (\`content\`, \`type\`, \`weight\`, \`grade\`, \`course\`, \`answer\`, \`gmt_create\`, \`gmt_modified\`) VALUES
                             ('{"title":{"word":"${title}","img":"${tille_img}"},"options":[${options}]}','${type}','${value}','${grade}','${subject}','${answer}','2020-11-09 14:47:54','2020-11-09 14:47:54');`;
