@@ -47,33 +47,32 @@
                                 sheet = workbook.Sheets[sheetName];
                                 grade = sheet[B_grade+i] ? sheet[B_grade+i].v :"";
                                 subject = sheet[C_subject+i] ? sheet[C_subject+i].v :"";
-                                title = sheet[D_title+i] ? sheet[D_title+i].v :"";
+                                title = sheet[D_title+i] ? (sheet[D_title+i].w ? sheet[D_title+i].w : sheet[D_title+i].v) :"";
                                 tille_img = sheet[E_tille_img+i] ? sheet[E_tille_img+i].v :"";
-                                a = sheet[F_a+i] ? sheet[F_a+i].v :"";
+                                a = sheet[F_a+i] ? (sheet[F_a+i].w ? sheet[F_a+i].w : sheet[F_a+i].v) :"";
                                 a_img = sheet[G_a_img+i] ? sheet[G_a_img+i].v :"";
-                                b = sheet[H_b+i] ? sheet[H_b+i].v :"";
+                                b = sheet[H_b+i] ? (sheet[H_b+i].w ? sheet[H_b+i].w : sheet[H_b+i].v) :"";
                                 b_img = sheet[I_b_img+i] ? sheet[I_b_img+i].v :"";
-                                c = sheet[J_c+i] ? sheet[J_c+i].v :"";
+                                c = sheet[J_c+i] ? (sheet[J_c+i].w ? sheet[J_c+i].w : sheet[J_c+i].v) :"";
                                 c_img = sheet[J_c_img+i] ? sheet[J_c_img+i].v :"";
-                                d = sheet[L_d+i] ? sheet[L_d+i].v :"";
+                                d = sheet[L_d+i] ? (sheet[L_d+i].w ? sheet[L_d+i].w : sheet[L_d+i].v) :"";
                                 d_img = sheet[M_d_img+i] ? sheet[M_d_img+i].v :"";
                                 answer = sheet[N_answer+i] ? sheet[N_answer+i].v :"";
                                 type = sheet[O_type+i] ? sheet[O_type+i].v :"";
                                 value = sheet[P_value+i] ? sheet[P_value+i].v :"";
                                 let options = [];
-                                if(!!a || !!a_img){
+                                if(a!='' || a_img!=''){
                                     options.push(`{"word":"${a}","img":"${a_img}"}`.replace("'","\\'").replace('\n','').replace('\n',''))
                                 }
-                                if(!!b || !!b_img){
+                                if(b!='' || b_img!=''){
                                     options.push(`{"word":"${b}","img":"${b_img}"}`.replace("'","\\'").replace('\n','').replace('\n',''))
                                 }
-                                if(!!c || !!c_img){
+                                if(c!='' || c_img!=''){
                                     options.push(`{"word":"${c}","img":"${c_img}"}`.replace("'","\\'").replace('\n','').replace('\n',''))
                                 }
-                                if(!!d || !!d_img){
+                                if(d!='' || d_img!=''){
                                     options.push(`{"word":"${d}","img":"${d_img}"}`.replace("'","\\'").replace('\n','').replace('\n',''))
                                 }
-                                debugger
                                 if(subject == "数学"){
                                     subject = 'math';
                                 }
