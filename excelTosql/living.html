@@ -1,0 +1,158 @@
+<html lang="en">
+
+<title> Convert Excel File To JSON </title>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="./js/jquery.js"></script>
+    <script lang="javascript" src="./js/xlsx.full.min.js"></script>
+    <script type="text/javascript" src="./js/FileSaver.js" charset="utf-8"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("#fileUploader").change(function(evt){
+                var selectedFile = evt.target.files[0];
+                var reader = new FileReader();
+//                  var XL_row_object = (workbook.Sheets[sheetName]);
+                var A = 'A'
+                var B_grade = "B";
+                var C_subject = "C";
+                var D_title = "D";
+                var E_tille_img = "E";
+                var F_a = "F";
+                var G_a_img = "G";
+                var H_b = "H";
+                var I_b_img = "I";
+                var J_c = "J";
+                var J_c_img = "K";
+                var L_d = "L";
+                var M_d_img = "M";
+                var N_answer = "N";
+                var O_type = "O";
+                var P_value = "P";
+                var Q_star = "Q";
+                var content = '';
+                reader.onload = function(event) {
+                    var data = event.target.result;
+                    var workbook = XLSX.read(data, {
+                        type: 'binary'
+                    });
+
+                    workbook.SheetNames.forEach(function(sheetName,index) {
+                        if(index == 0){
+                            var sheet = {};
+                            var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+                            for(let i=2;i < XL_row_object.length+2;i++) {
+                                sheet = workbook.Sheets[sheetName];
+                                pcode = sheet[A + i] ? sheet[A + i].v : "";
+                                product_id = sheet[B_grade + i] ? sheet[B_grade + i].v : "";
+                                mediaid_replay = sheet[C_subject + i] ? sheet[C_subject + i].v : "";
+                                mediaid_playing = sheet[D_title + i] ? (sheet[D_title + i].w ? sheet[D_title + i].w : sheet[D_title + i].v) : "";
+                                title = sheet[E_tille_img + i] ? sheet[E_tille_img + i].v : "";
+                                desp = sheet[F_a + i] ? (sheet[F_a + i].w ? sheet[F_a + i].w : sheet[F_a + i].v) : "";
+                                personUrl = sheet[G_a_img + i] ? sheet[G_a_img + i].v : "";
+                                saomaUrl = sheet[H_b + i] ? (sheet[H_b + i].w ? sheet[H_b + i].w : sheet[H_b + i].v) : "";
+                                course_poster = sheet[I_b_img + i] ? sheet[I_b_img + i].v : "";
+                                course_teacher = sheet[J_c + i] ? (sheet[J_c + i].w ? sheet[J_c + i].w : sheet[J_c + i].v) : "";
+                                course_count = sheet[J_c_img + i] ? sheet[J_c_img + i].v : "";
+                                course_start = sheet[L_d + i] ? (sheet[L_d + i].w ? sheet[L_d + i].w : sheet[L_d + i].v) : "";
+                                course_end = sheet[M_d_img + i] ? sheet[M_d_img + i].v : "";
+                                course_replay = sheet[N_answer + i] ? sheet[N_answer + i].v : "";
+                                course_curprize = sheet[O_type + i] ? sheet[O_type + i].v : "";
+                                course_oldPrize = sheet[P_value + i] ? sheet[P_value + i].v : "";
+                            }
+                        }
+                        if(index == 1){
+                            courseList = [];
+                            var sheet = {};
+                            var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+                            for(let i=3;i < XL_row_object.length+2;i++) {
+                                sheet = workbook.Sheets[sheetName];
+                                __title = sheet[A + i] ? sheet[A + i].v : "";
+                                __time = sheet[B_grade + i] ? sheet[B_grade + i].v : "";
+                                courseList.push({
+                                    ci:i-2,
+                                    status:i-3 == 0 ? '0' : '-1',
+                                    title:__title,
+                                    time:__time,
+                                    intent:'',
+                                })
+                            }
+                            courseList = JSON.stringify(courseList, null, 2)
+                        }
+                        if(index == 2){
+                            adsurl = [];
+                            var sheet = {};
+                            var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+                            for(let i=2;i < XL_row_object.length+2;i++) {
+                                sheet = workbook.Sheets[sheetName];
+                                __imgurl = sheet[A + i] ? sheet[A + i].v : "";
+                                adsurl.push({'imgurl':__imgurl})
+                            }
+                            adsurl = JSON.stringify(adsurl ,null, 2)
+                        }
+                    })
+                    content = `"no_com_gitv_youdaojingpinke_${mediaid_playing}":{
+    refreshrate:"30000",
+    pcode:"${pcode}",
+    product_id:"${product_id}",
+    mediaid_replay:"${mediaid_replay}",
+    mediaid_playing:"${mediaid_playing}",
+    textbook:"0",//是否有教材，1：有  0：没有  todo【此自动暂时统一写0】
+    title:"${title}",//课程名称
+    desp:"${desp}",//
+    personUrl:"${personUrl}",
+    saomaUrl:"${saomaUrl}",//聊天群图片
+    course_poster:"${course_poster}",//开课前海报
+    course_poster1:"${course_poster}",//开课后海报
+    course_teacher:"${course_teacher}",
+    course_count:"${course_count}",
+    course_start:"${course_start}",
+    course_end:"${course_end}",
+    course_replay:"${course_replay}",
+    course_curprize:"${course_curprize}",
+    course_oldPrize:"${course_oldPrize}",
+    pageFocusList :[
+      {id:0,domid:"",upto:"none",downto:"2",leftto:"none",rightto:"none",focusfunc:"showPicFocus(0)",unfocusfunc:"",clickfunc:"play(0)", page:1},
+      {id:1,domid:"",upto:"none",downto:"2",leftto:"0",rightto:"none",focusfunc:"showPicFocus(1)",unfocusfunc:"",clickfunc:"handleClick(1)", page:1},
+    ],
+    /**
+     * status 课程播放状态 1：讲课中 2：可回看 0：试看 -1：未开始  -2:暂无回看
+     * //0-novideo（无,未开始） 1-直播 2-点播（回看）  3-试看
+     */
+    courseList : ${courseList},
+    adsurl : ${adsurl}
+},`
+
+
+                    var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
+                    saveAs(blob, "file.txt");//saveAs(blob,filename)
+                };
+
+                reader.onerror = function(event) {
+                    console.error("File could not be read! Code " + event.target.error.code);
+                };
+
+                reader.readAsBinaryString(selectedFile);
+            });
+        });
+        //INSERT INTO `bot_engine`.`edu_question_info` (`content`, `type`, `weight`, `grade`, `course`, `answer`, `gmt_create`, `gmt_modified`)
+        // VALUES ('
+        // {"title":{"word":"正方体一共有（    ）个面。","img":""},
+        // "options":[
+        // {"word":"4","img":""},
+        // {"word":"6","img":""},
+        // {"word":"8","img":""}]}',
+        // '1','5','1','math','2','2020-08-23 14:47:54','2020-08-23 14:47:54');
+
+
+    </script>
+
+</head>
+
+<body>
+
+<input type="file" id="fileUploader" name="fileUploader" accept=".xls, .xlsx"/>
+</br></br>
+JSON : <label id="jsonObject"> </label>
+</body>
