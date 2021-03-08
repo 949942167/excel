@@ -62,16 +62,16 @@
                                 value = sheet[P_value+i] ? sheet[P_value+i].v :"";
                                 let options = [];
                                 if(a!='' || a_img!=''){
-                                    options.push(`{"word":"${a}","img":"${a_img}"}`.replace("'","\\'").replace('\n','').replace('\n',''))
+                                    options.push(`{"word":"${a}","img":"${a_img}"}`.replace(/'/g,"\\'").replace('\n','').replace('\n',''))
                                 }
                                 if(b!='' || b_img!=''){
-                                    options.push(`{"word":"${b}","img":"${b_img}"}`.replace("'","\\'").replace('\n','').replace('\n',''))
+                                    options.push(`{"word":"${b}","img":"${b_img}"}`.replace(/'/g,"\\'").replace('\n','').replace('\n',''))
                                 }
                                 if(c!='' || c_img!=''){
-                                    options.push(`{"word":"${c}","img":"${c_img}"}`.replace("'","\\'").replace('\n','').replace('\n',''))
+                                    options.push(`{"word":"${c}","img":"${c_img}"}`.replace(/'/g,"\\'").replace('\n','').replace('\n',''))
                                 }
                                 if(d!='' || d_img!=''){
-                                    options.push(`{"word":"${d}","img":"${d_img}"}`.replace("'","\\'").replace('\n','').replace('\n',''))
+                                    options.push(`{"word":"${d}","img":"${d_img}"}`.replace(/'/g,"\\'").replace('\n','').replace('\n',''))
                                 }
                                 if(subject == "数学"){
                                     subject = 'math';
@@ -100,9 +100,10 @@
                                 if(grade == "六年级"){
                                     grade = 6;
                                 }
-                                title = title.replace("'","\\'")
+                                title = title.replace(/'/g,"\\'");
                                 title = title.replace('\n','')
                                 title = title.replace('\n','')
+                                tille_img = tille_img.replace("'","\\'")
                                 tille_img = tille_img.replace("'","\\'")
                                 tille_img = tille_img.replace('\n','')
                                 tille_img = tille_img.replace('\n','')
